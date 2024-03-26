@@ -8,8 +8,11 @@
 #include "sensor.h"
 #include "robot.h"
 #include "part3.h"
+#include <thread>
 #include <vector>
 using namespace std;
+
+
 
 int main() {
 	{// part 1
@@ -32,25 +35,30 @@ int main() {
 		Robot robot4(4);
 
 		// nessisary because when incrimented in the first itteration, the timer starts at 0
-		int timer = -1;
+		auto startTime =	std::chrono::high_resolution_clock::now();
 		//cout << (((robot0.taskComplete && robot1.taskComplete) && (robot2.taskComplete && robot3.taskComplete)) && robot4.taskComplete) << endl;
 		while (!(((robot0.taskComplete && robot1.taskComplete) && (robot2.taskComplete && robot3.taskComplete)) && robot4.taskComplete))
 		{
-			timer++;
-			cout << endl << "time: " << timer << endl;
-			robot0.opperate();
-			robot1.opperate();
-			robot2.opperate();
-			robot3.opperate();
-			robot4.opperate();
+			
+			jthread t1(&Robot::opperate, &robot0);
+			jthread t2(&Robot::opperate, &robot1);
+			jthread t3(&Robot::opperate, &robot2);
+			jthread t4(&Robot::opperate, &robot3);
+			jthread t5(&Robot::opperate, &robot4);
 			
 			
 		}
+		auto stopTime =std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::seconds>(stopTime - startTime);
+		std::cout << "duration : " << duration.count() <<" seconds" << std::endl;
 		
-		cout << "duration: " << timer << " seconds" << endl;
 	}
 	{
+		auto startTime = std::chrono::high_resolution_clock::now();
 		part3();
+		auto stopTime = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::seconds>(stopTime - startTime);
+		std::cout << "duration : " << duration.count() << " seconds" << std::endl;
 	}
 
 	{// part 4

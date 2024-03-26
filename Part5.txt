@@ -1,0 +1,24 @@
+From Question2, what issues may happen if the robot that finished the
+task is assigned a new task immediately? And what will be a potential
+solution for the issues?
+
+Lets say that this happens for robot 0. What can happen in that 
+circumstance is that the robot 0 immediately grabs its tools again
+preventing robots 1 and 4 from being able to start their tasks.
+This means that while robot 0 is getting through several of its own tasks,
+it is preventing the other robots from being able to start potentially their
+first task. If this keeps happening, you can end up with a robot continuously 
+locking out the two robots next to it and preventing them from being able to run.
+
+The easiest way to solve this potential issue is to have a small delay in the code
+after the task is complete and the mutex arround the task is unlocked but before the
+end of the thread's task which allows the other robot's threads to catch up and get 
+their tools, which can allow the robots to opperate evenly and generally will prevent 
+a robot from being continuously being locked out and unable to complete its tasks while 
+not slowing down production by any meaningful capacity (with most modern cpus, a delay 
+in the micro or nano seconds should allow each thread the ability to catch up and 
+evenly distribute the work).
+
+For a better solution, you can set up a scheduled rotation where you establish 
+which robot runs after each robot finishes its tasks and if you develop the 
+rotation properly, you can ensure that the robots complete tasks evenly.

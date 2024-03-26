@@ -1,0 +1,25 @@
+From Question3, what issues you might obtain during the development of
+the program? What issues do you think will happen if some of the actions,
+e.g., waking up the ATC, checking the traffic pattern, entering the traffic
+pattern, diverging to another airport, etc., take time to finish? And what
+will be a potential solution for the issues?
+
+Some of the issues I encountered included very slow thread start ups
+where the computer would take very long to allocate tasks to new threads,
+resulting in the program running each thread sequentially. I was able 
+to isolate the issue to this as with a 50 microsecond delay added in 
+the task, the code was able to act more similarly to the presented 
+examples of what the code output is intended to look like.
+
+If further delays were added from the ATC needing to wake up, check the 
+patern and other airport related tasks, it would likely result in all 
+but 3 aircraft being immediatly diverted from the airport. I ran a test 
+where I assumed all of these additional delays added up rougly to 1 second 
+and was only able to have 3 aircraft land while all others would be diverted.
+
+The best solution to ensuring that the aircraft can land at the airport 
+is to set up a proper holding system and queing aircraft down to land 
+instead of only granting clearance for one aircraft to land at a time 
+similar to how most modern large airports handle arrivals today. This 
+would mean that even with standard human delays, the aircraft would be 
+able to land and most would not be unnessisarily diverted away.

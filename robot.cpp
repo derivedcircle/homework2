@@ -1,11 +1,12 @@
 #include "robot.h"
 #include <map>
 #include <iostream>
+#include <mutex>
 
 using namespace std;
 
 
-
+mutex m;
 
 bool Robot::tools[] = {true,true,true,true,true};
 
@@ -59,6 +60,7 @@ void Robot::collectData()
 
 void Robot::doTask()
 {
+	
 	taskTimeCounter--;
 
 	if (taskTimeCounter == 5)
@@ -66,7 +68,7 @@ void Robot::doTask()
 		cout << "robot " << robotID << " aquired tools and starts performing a task" << endl;
 	}
 	
-	//cout << "robot " << robotID << " counter " << taskTimeCounter << endl;
+	
 
 	if (taskTimeCounter == 0)
 	{
@@ -98,8 +100,19 @@ void Robot::doTask()
 
 void Robot::opperate()
 {
+
+	
 	if (!aquiredTools)
+	{
+		m.lock();
 		collectData();
+		m.unlock();
+	}
 	else if (!taskComplete)
+	{
+		m.lock();
 		doTask();
+		m.unlock();
+	}
+	this_thread::sleep_for(chrono::seconds(1));// one second delay between each action
 }
