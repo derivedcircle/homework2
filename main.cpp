@@ -8,6 +8,7 @@
 #include "sensor.h"
 #include "robot.h"
 #include "part3.h"
+#include "part4.h"
 #include <thread>
 #include <vector>
 using namespace std;
@@ -40,12 +41,17 @@ int main() {
 		while (!(((robot0.taskComplete && robot1.taskComplete) && (robot2.taskComplete && robot3.taskComplete)) && robot4.taskComplete))
 		{
 			
-			jthread t1(&Robot::opperate, &robot0);
-			jthread t2(&Robot::opperate, &robot1);
-			jthread t3(&Robot::opperate, &robot2);
-			jthread t4(&Robot::opperate, &robot3);
-			jthread t5(&Robot::opperate, &robot4);
+			thread t1(&Robot::opperate, &robot0);
+			thread t2(&Robot::opperate, &robot1);
+			thread t3(&Robot::opperate, &robot2);
+			thread t4(&Robot::opperate, &robot3);
+			thread t5(&Robot::opperate, &robot4);
 			
+			t1.join();
+			t2.join();
+			t3.join();
+			t4.join();
+			t5.join();
 			
 		}
 		auto stopTime =std::chrono::high_resolution_clock::now();
@@ -62,7 +68,7 @@ int main() {
 	}
 
 	{// part 4
-
+		part4();
 	}
 
 	return 0;
