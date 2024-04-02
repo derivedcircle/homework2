@@ -1,23 +1,23 @@
-#ifndef ROBOT_H
+#ifndef ROBOT_H // include guard
 #define ROBOT_H
 
-void part2();
+// part 2
 
 class Robot
-{
-	int robotID;
+{ // implimenting the robot class
+	int robotID; // value for robot id
 	
-	bool aquiredTools;
+	bool aquiredTools; // checks if the robot has aquired its tools to do its task
 	
-	int taskTimeCounter;
-	void collectData();
-	void doTask();
+	int taskTimeCounter; // counts down how long for the robot to do its task
+	void collectData(); // function to collect data/ aquire its tools (using naming convention from HW2 packet)
+	void doTask(); // function to do the robot's task
 
 public:
-	static bool tools[5];
-	Robot(int robNum);
-	bool taskComplete;
-	void opperate();
+	static bool tools[5]; // static class boolean reporting which tools are taken and which ones are free/available
+	Robot(int robNum); // constructior that takes in the robot's id number
+	bool taskComplete; // reports if the robot is done with it's task
+	void opperate(); // a robot operation funciton designed for multithreading
 	
 
 };

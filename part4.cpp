@@ -3,8 +3,9 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 #include <iostream>
-
+// includes all header files
 void part4() {
+    // openGL setup / initialization
     glewExperimental = true; // Needed for core profile
     if (!glfwInit())
     {
@@ -27,13 +28,13 @@ void part4() {
         fprintf(stderr, "Failed to initialize GLEW\n");
         return;
     }
-    // Ensure we can capture the escape key being pressed below
-    //glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    
 
+    // clears background
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
-
+        
         glBegin(GL_LINES);
         // Draw X and Y axis
         glColor3f(1.0, 1.0, 1.0);
@@ -44,10 +45,11 @@ void part4() {
         glEnd();
 
         glBegin(GL_LINES);
-        // Draw X and Y axis
-        glColor3f(0, 0, 1.0);
+        // Draw cool underdamped ocsilation function
+        
         for (int i = 0; i < 2000; i++)
         {
+            glColor3f(i*1.0/2000.0, 1.0-i*1.0/2000.0, 0.5);
             double xPrev = i * 1.0 / 1000.0 - 1;
             double yPrev = 0.5* exp(-xPrev) * (cos(xPrev * 5));
 

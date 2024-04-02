@@ -3,15 +3,15 @@
 
 
 using namespace std;
+// includes all needed header files and sets namespace default as standard 
+// part 1.2 code
 
-// part 1.2
-
-void Angleofattack::gatherData()
+void Angleofattack::gatherData() // the angle of attack sensor implimentation of the gather data function
 {
   cout<<"Gathering data from angleofattack sensor."<<endl;
 }
 
-void Angleofattack::processData()
+void Angleofattack::processData() // the angle of attack sensor implimentation of the process data function
 {
   cout<<"Processing data from angleofattack sensor."<<endl;
 }
